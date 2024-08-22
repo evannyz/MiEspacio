@@ -1,0 +1,72 @@
+
+
+:root{
+    --main-bg-aqua-green: #3ba2a9;
+    --main-bg-grey: #f1f1f1;
+}
+
+body{
+    background-image: url("../img/para_transparencia.jpg");
+    background-size: cover; /* Ajusta la imagen para cubrir el área completa */
+    background-position: center;
+  
+}
+
+ .formset-row {
+    margin-bottom: 15px;
+}
+
+.formset-row input[type="file"],
+.formset-row input[type="text"] {
+    margin-right: 10px;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination span {
+    margin: 0 5px;
+}
+
+.pagination a {
+    color: #007bff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pagination a:hover {
+    background-color: #e9ecef;
+    border-color: #ddd;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-img-top {
+    max-height: 200px; /* Ajusta la altura de la imagen según sea necesario */
+    object-fit: cover;
+}
+
+.card-body {
+    flex: 1; /* Hace que el cuerpo de la tarjeta ocupe el espacio restante */
+}
+
+.btn-primary {
+    margin-top: auto; /* Empuja el botón hacia abajo */
+}
+
+.fondo-celeste{
+    background-color: var(--main-bg-aqua-green);
+}
+
+.fondo-gris{
+    background-color: var(--main-bg-grey);
+}

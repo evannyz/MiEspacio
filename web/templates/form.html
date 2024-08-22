@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <!-- Script JavaScript para manejar Ajax -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form id="formulario-direccion">
+        <!-- Campo para seleccionar la región -->
+        <select id="id_region">
+            <option value="">Selecciona una región</option>
+            {% for region in regions %}
+                <option value="{{ region.id }}">{{ region.nombre }}</option>
+            {% endfor %}
+        </select>
+    
+        <!-- Campo para mostrar las comunas -->
+        <select id="id_comuna" name="comuna">
+            <option value="">Selecciona una comuna</option>
+        </select>
+    
+        <!-- Otros campos del formulario de dirección -->
+        <!-- ... -->
+    
+        <!-- Botón de enviar -->
+        <button type="submit">Guardar dirección</button>
+    </form>
+    
+    <script>
+    $(document).ready(function() {
+        $('#id_region').change(function() {
+            var regionId = $(this).val();
+            if (regionId) {
+                $.ajax({
+                    url: '{% url "obtener_comunas" %}',
+                    data: {
+                        'region_id': regionId
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#id_comuna').empty();
+                        $.each(data, function(index, comuna) {
+                            $('#id_comuna').append('<option value="' + comuna.id + '">' + comuna.nombre + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#id_comuna').empty();
+            }
+        });
+    });
+    </script>
+</body>
+</html>

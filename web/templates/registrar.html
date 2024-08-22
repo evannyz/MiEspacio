@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Formulario de Usuario
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-5 pb-5">
+<div class="container mt-5 ">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2>Registro de Usuario</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="formulario-usuario">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <button type="submit" class="btn btn-primary btn-block">Guardar Usuario</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Script JavaScript para manejar la carga dinámica de comunas -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_region').change(function () {
+            var regionId = $(this).val();
+            if (regionId) {
+                $.ajax({
+                    url: '{% url "obtener_comunas" %}',
+                    data: {
+                        'region_id': regionId
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#id_comuna').empty();
+                        $.each(data, function (index, comuna) {
+                            $('#id_comuna').append('<option value="' + comuna.id + '">' + comuna.nombre + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#id_comuna').empty();
+            }
+        });
+    });
+</script>
+{% endblock %}

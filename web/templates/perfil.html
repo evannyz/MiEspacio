@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Perfil de usuario
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-4 py-4">
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Card de Información del Usuario -->
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Perfil de {{ usuario.username }}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Nombre:</strong> {{ usuario.first_name|title }} {{ usuario.last_name|title }}</p>
+                        <p><strong>Email:</strong> {{ usuario.email }}</p>
+                        <p><strong>RUT:</strong> {{ usuario.rut }}</p>
+                        <p><strong>Teléfono personal:</strong> {{ usuario.telefono_personal }}</p>
+                        <p><strong>Tipo de usuario:</strong> {{ usuario.get_tipo_usuario_display|title }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card de Dirección del Usuario -->
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Dirección</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if usuario.direccion %}
+                        <p><strong>Calle:</strong> {{ usuario.direccion.calle|title }}</p>
+                        <p><strong>Número:</strong> {{ usuario.direccion.numero }}</p>
+                        <p><strong>Punto de referencia:</strong> {{ usuario.direccion.punto_referencia|title }}</p>
+                        <p><strong>Comuna:</strong> {{ usuario.direccion.comuna.nombre|title }}</p>
+                        {% else %}
+                        <p>Aún no se ha registrado una dirección.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Botón para modificar perfil -->
+        
+        <div class="text-center mt-3">
+            {% if usuario.tipo_usuario == 'arrendador' %}
+            <a href="{% url 'listar' %}" class="btn btn-primary btn-lg me-2">Ver detalles de propiedad</a>
+            {% endif %}
+            <a href="{% url 'modificar_perfil' %}" class="btn  btn-primary btn-lg">Modificar perfil</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

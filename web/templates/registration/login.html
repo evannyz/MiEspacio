@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio de Sesión{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-4 py-4">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6"> <!-- Ajusta el ancho del contenedor -->
+            <div class="card shadow-lg border-light login-card">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Iniciar Sesión</h1>
+                    <form method="post" class="needs-validation" >
+                        {% csrf_token %}
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        <div class="form-group mb-3">
+                            <label for="{{ form.username.id_for_label }}">Usuario:</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.username.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="{{ form.password.id_for_label }}">Contraseña:</label>
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.password.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar Sesión</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'registro' %}" class="btn btn-link">Registrarse</a>
+                        <a href="{% url 'listar_propiedades' %}" class="btn btn-link">Volver al Inicio</a>
+                    </div>
+                    {% if messages %}
+                        <div class="mt-3">
+                            <div class="alert alert-danger">
+                                {% for message in messages %}
+                                    <p class="mb-0">{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
